@@ -355,7 +355,7 @@ int can_gen_totp_code(struct openconnect_info *vpninfo,
 	} else if (vpninfo->token_tries == 1) {
 		vpn_progress(vpninfo, PRG_DEBUG,
 			     _("OK to generate NEXT tokencode\n"));
-		vpninfo->token_time += 30;
+		vpninfo->token_time += 60;
 	} else {
 		/* limit the number of retries, to avoid account lockouts */
 		vpn_progress(vpninfo, PRG_INFO,
@@ -419,7 +419,7 @@ int do_gen_totp_code(struct openconnect_info *vpninfo,
 	vpn_progress(vpninfo, PRG_INFO, _("Generating OATH TOTP token code\n"));
 
 	/* XXX: Support non-standard start time and step size */
-	challenge = vpninfo->token_time / 30;
+	challenge = vpninfo->token_time / 60;
 
 	if (gen_hotp(vpninfo, challenge, tokencode))
 		return -EIO;
